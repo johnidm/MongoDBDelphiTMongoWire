@@ -1,0 +1,67 @@
+
+
+unit Conn.MongoDB;
+
+interface
+
+uses
+  mongoWire, System.SysUtils;
+
+type
+  // Factory para a criação de um objeto que representa a conexão com o servidor MongoDB
+  TConnMongoDB = class
+    private class var MongoWire: TMongoWire;
+
+    public class function GetConnection( const AServer: string = 'localhost';
+       const APort: Integer = 27017 ): TMongoWire;
+
+    public class procedure CloseConnection();
+
+    public class function GetCurrentConnection(): TMongoWire;
+    public class function ExistsConnection(): Boolean;
+  end;
+
+
+implementation
+
+{ TConnMongoDB }
+
+class procedure TConnMongoDB.CloseConnection;
+begin
+  if ( Assigned( MongoWire ) ) then
+    FreeAndNil( MongoWire );
+end;
+
+class function TConnMongoDB.ExistsConnection: Boolean;
+begin
+  Result:= ( GetCurrentConnection <> nil );
+end;
+
+
+class function TConnMongoDB.GetConnection(const AServer: string;
+  const APort: Integer): TMongoWire;
+begin
+  if ( ExistsConnection() ) then
+    GetCurrentConnection().Close();
+
+  // Cria uma nova conexão
+  Result:= TMongoWire.Create();
+  Result.Open( AServer, APort );
+end;
+
+
+class function TConnMongoDB.GetCurrentConnection: TMongoWire;
+begin
+  Result:= MongoWire;
+end;
+
+
+
+initialization
+
+
+
+finalization
+  TConnMongoDB.CloseConnection();
+
+end.

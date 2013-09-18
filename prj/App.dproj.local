@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2013/09/16 21:25:24.000.421,=C:\Users\VM_WIN7\Documents\RAD Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2013/09/16 21:25:45.000.504,C:\Users\VM_WIN7\Documents\RAD Studio\Projects\Unit2.dfm=F:\SampleMongoDBDelphi\src\main.dfm</Transaction>
+    <Transaction>2013/09/16 21:25:45.000.504,C:\Users\VM_WIN7\Documents\RAD Studio\Projects\Unit2.pas=F:\SampleMongoDBDelphi\src\main.pas</Transaction>
+    <Transaction>2013/09/16 21:25:57.000.554,C:\Users\VM_WIN7\Documents\RAD Studio\Projects\Project2.dproj=F:\SampleMongoDBDelphi\prj\App.dproj</Transaction>
+    <Transaction>2013/09/16 21:26:28.000.375,=F:\SampleMongoDBDelphi\src\TMongoWire\mongoID.pas</Transaction>
+    <Transaction>2013/09/16 21:26:28.000.407,=F:\SampleMongoDBDelphi\src\TMongoWire\mongoWire.pas</Transaction>
+    <Transaction>2013/09/16 21:26:28.000.347,=F:\SampleMongoDBDelphi\src\TMongoWire\bsonUtils.pas</Transaction>
+    <Transaction>2013/09/16 21:26:28.000.361,=F:\SampleMongoDBDelphi\src\TMongoWire\mongoAuth.pas</Transaction>
+    <Transaction>2013/09/16 21:26:28.000.422,=F:\SampleMongoDBDelphi\src\TMongoWire\VBScript_RegExp_55_TLB.pas</Transaction>
+    <Transaction>2013/09/16 21:26:28.000.390,=F:\SampleMongoDBDelphi\src\TMongoWire\mongoStream.pas</Transaction>
+    <Transaction>2013/09/16 21:26:28.000.330,=F:\SampleMongoDBDelphi\src\TMongoWire\bsonDoc.pas</Transaction>
+    <Transaction>2013/09/16 21:27:21.000.482,=F:\SampleMongoDBDelphi\prj\Unit1.pas</Transaction>
+    <Transaction>2013/09/16 21:27:45.000.162,F:\SampleMongoDBDelphi\prj\Unit1.pas=F:\SampleMongoDBDelphi\src\Conn.MongoDB.pas</Transaction>
+    <Transaction>2013/09/16 21:27:55.000.168,F:\SampleMongoDBDelphi\src\main.pas=F:\SampleMongoDBDelphi\src\App.Main.pas</Transaction>
+    <Transaction>2013/09/16 21:27:55.000.168,F:\SampleMongoDBDelphi\src\main.dfm=F:\SampleMongoDBDelphi\src\App.Main.dfm</Transaction>
+    <Transaction>2013/09/16 21:56:56.000.402,=F:\SampleMongoDBDelphi\prj\Unit1.pas</Transaction>
+    <Transaction>2013/09/16 21:57:09.000.115,F:\SampleMongoDBDelphi\prj\Unit1.pas=F:\SampleMongoDBDelphi\src\Query.MongoDB.pas</Transaction>
+    <Transaction>2013/09/16 22:44:29.000.351,F:\SampleMongoDBDelphi\src\DAO.pas=F:\SampleMongoDBDelphi\src\Query.MongoDB.pas</Transaction>
+    <Transaction>2013/09/16 22:44:39.000.228,F:\SampleMongoDBDelphi\src\DAO.Cliente.Cliente=F:\SampleMongoDBDelphi\src\DAO.Cliente</Transaction>
+    <Transaction>2013/09/16 22:46:07.000.359,F:\SampleMongoDBDelphi\src\DAO.Alunos.pas=F:\SampleMongoDBDelphi\src\DAO.Cliente.pas</Transaction>
+    <Transaction>2013/09/16 22:47:51.000.219,=F:\SampleMongoDBDelphi\prj\Unit1.pas</Transaction>
+    <Transaction>2013/09/16 22:48:15.000.858,F:\SampleMongoDBDelphi\src\Model.Alunos.pas=F:\SampleMongoDBDelphi\prj\Unit1.pas</Transaction>
+    <Transaction>2013/09/16 22:48:27.000.983,F:\SampleMongoDBDelphi\src\Model.Aluno.pas=F:\SampleMongoDBDelphi\src\Model.Alunos.pas</Transaction>
+    <Transaction>2013/09/16 22:48:31.000.995,F:\SampleMongoDBDelphi\src\DAO.Aluno.pas=F:\SampleMongoDBDelphi\src\DAO.Alunos.pas</Transaction>
+    <Transaction>2013/09/16 22:53:26.000.395,=F:\DelphiExemploDAO\fontes\persistencia\DAO.Base.pas</Transaction>
+  </Transactions>
+</BorlandProject>

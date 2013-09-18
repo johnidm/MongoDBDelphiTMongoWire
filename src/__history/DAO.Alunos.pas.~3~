@@ -1,0 +1,40 @@
+unit DAO.Alunos;
+
+interface
+
+const
+  COLLECTION = 'unoesc.cursodelphi'; { database e a coleção(tabelas) }
+
+type
+
+  TDAOAlunos = class(TDAOBase)
+  public
+    procedure Salvar(const AModelCliente: TModelCliente);
+    procedure Excluir(const AModelCliente: TModelCliente);
+    function Pesquisar(const AID: Integer): TModelCliente;
+    function ListarTodos(): TModelListaCliente;
+  end;
+ 
+implementation
+
+{ TQueryMongoDB }
+
+uses Conn.MongoDB, bsonDoc, mongoID;
+
+{
+class procedure TQueryMongoDB.Insert( const AAlunos: TAlunos );
+begin
+  TConnMongoDB.GetCurrentConnection().Insert(
+    COLLECTION, BSON( [
+      'nome', AAlunos.Nome,
+      'curso', AAlunos.Curso,
+      'disciplina', AAlunos.Disciplina,
+      'nota', AAlunos.Nota
+    ] ) );
+end;
+}
+
+
+
+
+end.

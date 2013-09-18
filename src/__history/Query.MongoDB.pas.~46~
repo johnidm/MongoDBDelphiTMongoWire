@@ -1,0 +1,32 @@
+unit Query.MongoDB;
+
+interface
+
+const
+  COLLECTION = 'unoesc.cursodelphi'; { database e a coleção(tabelas) }
+
+type
+  TQueryMongoDB = class
+    public class procedure Insert( const AItem : array of OleVariant );
+  end;
+
+implementation
+
+{ TQueryMongoDB }
+
+uses Conn.MongoDB, bsonDoc, mongoID;
+
+class procedure TQueryMongoDB.Insert( const AAlunos: TAlunos );
+
+
+begin
+  TConnMongoDB.GetCurrentConnection().Insert(
+    COLLECTION, BSON( [
+
+
+    ] ) );
+end;
+
+
+
+end.
