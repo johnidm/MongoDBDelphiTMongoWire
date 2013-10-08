@@ -4,15 +4,15 @@ interface
 
 
 uses
-  Model.Aluno, DAO.Base, System.SysUtils, mongoWire;
+  Model.Aluno, System.SysUtils, mongoWire;
 
 
 const
-  COLLECTION = 'unoesc.alunos'; { database e a coleção(tabelas) }
+  COLLECTION = 'db.johni.alunos'; { database e a coleção(tabelas) }
 
 
 type
-  TDAOAluno = class( TDAOBase )
+  TDAOAluno = class
   public
     procedure Salvar(const AModelCliente: TModelAluno);
     procedure Excluir(const AID: Integer);
@@ -58,7 +58,7 @@ begin
     begin
       Aluno:= TModelAluno.Create();
 
-      s:= VarToStr( Document[ 'id' ] );
+      //s:= VarToStr( Document[ 'id' ] );
 
       Aluno.Codigo:= StrToInt( VarToStr( Document[ 'codigo' ] ) );
       Aluno.Nome:= VarToStr( Document[ 'nome' ] );
@@ -74,15 +74,34 @@ end;
 
 function TDAOAluno.Pesquisar(const AID: Integer): TModelAluno;
 var
-  WireQuery: TMongoWireQuery;
+  q, WireQuery: TMongoWireQuery;
 
 
-  Document: IBSONDocument;
+  d,  Document, dSelector: IBSONDocument;
 begin
   Result:= TModelAluno.Create();
 
-  Document:= TConnMongoDB.GetCurrentConnection().Get( COLLECTION, DocumentSelect );
+  {
+  dSelector:=BSON(['codigo', 1]);
+  Document:= TConnMongoDB.GetCurrentConnection().Get( COLLECTION, dSelector );
+  Result.Codigo:= StrToInt( VarToStr( Document[ 'codigo' ] ) );
+  Result.Nome:= VarToStr( Document[ 'nome' ] );
+  }
 
+
+  d := BSON(['codigo','1']);
+  q := TMongoWireQuery.Create( TConnMongoDB.GetCurrentConnection( ) );
+  try
+    q.Query( COLLECTION ,d);
+    if q.Next(d) then
+    begin
+      //found!
+    end;
+  finally
+    q.Free;
+  end;
+
+  {
   Document:= BSON;
   WireQuery:= TMongoWireQuery.Create( TConnMongoDB.GetCurrentConnection() );
   try
@@ -95,7 +114,7 @@ begin
   finally
     FreeAndNil( WireQuery );
   end;
-
+   }
 end;
 
 

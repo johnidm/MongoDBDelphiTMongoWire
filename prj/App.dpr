@@ -12,8 +12,7 @@ uses
   VBScript_RegExp_55_TLB in '..\src\TMongoWire\VBScript_RegExp_55_TLB.pas',
   Conn.MongoDB in '..\src\Conn.MongoDB.pas',
   DAO.Aluno in '..\src\DAO.Aluno.pas',
-  Model.Aluno in '..\src\Model.Aluno.pas',
-  DAO.Base in 'F:\DelphiExemploDAO\fontes\persistencia\DAO.Base.pas';
+  Model.Aluno in '..\src\Model.Aluno.pas';
 
 {$R *.res}
 

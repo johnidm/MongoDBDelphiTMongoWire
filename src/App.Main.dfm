@@ -14,8 +14,8 @@ object Form2: TForm2
   PixelsPerInch = 96
   TextHeight = 13
   object Insert: TButton
-    Left = 142
-    Top = 127
+    Left = 166
+    Top = 30
     Width = 75
     Height = 25
     Caption = 'Insert'
@@ -23,8 +23,8 @@ object Form2: TForm2
     OnClick = InsertClick
   end
   object Desconect: TButton
-    Left = 584
-    Top = 79
+    Left = 400
+    Top = 61
     Width = 75
     Height = 25
     Caption = 'Desconect'
@@ -32,8 +32,8 @@ object Form2: TForm2
     OnClick = DesconectClick
   end
   object Conect: TButton
-    Left = 584
-    Top = 32
+    Left = 400
+    Top = 30
     Width = 75
     Height = 25
     Caption = 'Conect'
@@ -61,34 +61,21 @@ object Form2: TForm2
     TabOrder = 4
   end
   object Button1: TButton
-    Left = 142
-    Top = 30
+    Left = 166
+    Top = 127
     Width = 75
     Height = 25
-    Caption = 'Pesquisa'
+    Caption = 'Find'
     TabOrder = 5
     OnClick = Button1Click
   end
   object Button2: TButton
-    Left = 328
-    Top = 216
-    Width = 75
-    Height = 25
-    Caption = 'Button2'
+    Left = 400
+    Top = 118
+    Width = 179
+    Height = 43
+    Caption = 'DAOAluno.Teste'
     TabOrder = 6
     OnClick = Button2Click
-  end
-  object Button3: TButton
-    Left = 112
-    Top = 256
-    Width = 75
-    Height = 25
-    Caption = 'Button3'
-    TabOrder = 7
-    OnClick = Button3Click
-  end
-  object OpenDialog1: TOpenDialog
-    Left = 480
-    Top = 40
   end
 end

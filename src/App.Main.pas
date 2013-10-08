@@ -9,7 +9,6 @@ uses
 
 type
   TForm2 = class(TForm)
-    OpenDialog1: TOpenDialog;
     Insert: TButton;
     Desconect: TButton;
     Conect: TButton;
@@ -17,7 +16,6 @@ type
     LabeledEdit2: TLabeledEdit;
     Button1: TButton;
     Button2: TButton;
-    Button3: TButton;
     procedure Button1Click(Sender: TObject);
     procedure ConectClick(Sender: TObject);
     procedure DesconectClick(Sender: TObject);
@@ -61,7 +59,7 @@ var
 begin
 
   DAOAluno:= TDAOAluno.Create;
-  DAOAluno.TEste;
+  DAOAluno.Teste;
 
 end;
 
