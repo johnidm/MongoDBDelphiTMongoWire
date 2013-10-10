@@ -4,12 +4,13 @@ interface
 
 
 uses
-  Model.Aluno, System.SysUtils, mongoWire;
-
+  Model.Aluno,
+  System.SysUtils,
+  bsonUtils,
+  mongoWire;
 
 const
-  COLLECTION = 'db.johni.alunos'; { database e a coleção(tabelas) }
-
+  COLLECTION = 'universidade.alunos'; { database e a coleção(tabelas) }
 
 type
   TDAOAluno = class
@@ -19,9 +20,9 @@ type
     function Pesquisar(const AID: Integer): TModelAluno;
     function ListarTodos(): TModelListaAlunos;
 
-    procedure Teste();
+    function ToJSON(): string;
   end;
- 
+
 implementation
 
 { TQueryMongoDB }
@@ -31,12 +32,16 @@ uses Conn.MongoDB, bsonDoc, mongoID, System.Variants;
 { TDAOAluno }
 
 procedure TDAOAluno.Excluir(const AID: Integer);
+var
+  Document: IBSONDocument;
+
 begin
-  {
-  TConnMongoDB.GetCurrentConnection().Delete(
-    COLLECTION, BSON( [ 'codigo', IntToStr( AID ) ] ) );
-  }
+  Document:= BSON( [ 'codigo', AID ] );
+
+  TConnMongoDB.GetCurrentConnection().Delete( COLLECTION, Document );
 end;
+
+
 
 function TDAOAluno.ListarTodos: TModelListaAlunos;
 var
@@ -44,7 +49,6 @@ var
   Document: IBSONDocument;
   Aluno: TModelAluno;
 
-  s: string;
 begin
   Result:= TModelListaAlunos.Create();
 
@@ -52,13 +56,11 @@ begin
 
   WireQuery:= TMongoWireQuery.Create( TConnMongoDB.GetCurrentConnection() );
   try
-    WireQuery.Query( COLLECTION, nil );
+    WireQuery.Query( COLLECTION, Document );
 
     while WireQuery.Next( Document ) do
     begin
       Aluno:= TModelAluno.Create();
-
-      //s:= VarToStr( Document[ 'id' ] );
 
       Aluno.Codigo:= StrToInt( VarToStr( Document[ 'codigo' ] ) );
       Aluno.Nome:= VarToStr( Document[ 'nome' ] );
@@ -72,87 +74,70 @@ begin
 
 end;
 
+
+
 function TDAOAluno.Pesquisar(const AID: Integer): TModelAluno;
 var
-  q, WireQuery: TMongoWireQuery;
+  WireQuery: TMongoWireQuery;
+  Document: IBSONDocument;
 
-
-  d,  Document, dSelector: IBSONDocument;
 begin
   Result:= TModelAluno.Create();
+  // {TODO implemetnar o IsEmpty no IBSONDocument }
 
-  {
-  dSelector:=BSON(['codigo', 1]);
-  Document:= TConnMongoDB.GetCurrentConnection().Get( COLLECTION, dSelector );
-  Result.Codigo:= StrToInt( VarToStr( Document[ 'codigo' ] ) );
-  Result.Nome:= VarToStr( Document[ 'nome' ] );
-  }
-
-
-  d := BSON(['codigo','1']);
-  q := TMongoWireQuery.Create( TConnMongoDB.GetCurrentConnection( ) );
+  Document := BSON( [ 'codigo' , AID ] );
+  WireQuery := TMongoWireQuery.Create( TConnMongoDB.GetCurrentConnection( ) );
   try
-    q.Query( COLLECTION ,d);
-    if q.Next(d) then
+    WireQuery.Query( COLLECTION ,Document );
+    if WireQuery.Next( Document ) then
     begin
-      //found!
+
+      Result.Codigo:= StrToInt( VarToStr( Document[ 'codigo' ] ) );
+      Result.Nome:= VarToStr( Document[ 'nome' ] );
+
     end;
-  finally
-    q.Free;
-  end;
-
-  {
-  Document:= BSON;
-  WireQuery:= TMongoWireQuery.Create( TConnMongoDB.GetCurrentConnection() );
-  try
-    WireQuery.Query( COLLECTION, BSON( [ 'id', 'ObjectID("5237b774d033c807549b48e8")' ] ) );
-    WireQuery.Next( Document );
-
-    Result.Codigo:= StrToInt( VarToStr( Document[ 'codigo' ] ) );
-    Result.Nome:= VarToStr( Document[ 'nome' ] );
-
   finally
     FreeAndNil( WireQuery );
   end;
-   }
+
 end;
 
 
 
 procedure TDAOAluno.Salvar(const AModelCliente: TModelAluno);
+var
+  Document: IBSONDocument;
+  
 begin
-  TConnMongoDB.GetCurrentConnection().Insert(
-    COLLECTION, BSON( [
+  Document:= TConnMongoDB.GetCurrentConnection().Get( COLLECTION, BSON(['codigo', AModelCliente.Codigo ]) );
+  if ( Document <> nil ) then
+    TConnMongoDB.GetCurrentConnection().Update(
+      COLLECTION, Document ,
+        BSON( [
+        'id', Document['id'] ,
+        'codigo', AModelCliente.Codigo ,
+        'nome', AModelCliente.Nome
+      ] ) )
+  else
+    TConnMongoDB.GetCurrentConnection().Insert(
+      COLLECTION, BSON( [
+        'id', mongoObjectId,
+        'codigo', AModelCliente.Codigo,
+        'nome', AModelCliente.Nome
+      ] ) );
 
-      'id', mongoObjectId,
-      'codigo', AModelCliente.Codigo,
-      'nome', AModelCliente.Nome
-
-    ] ) );
 end;
 
-procedure TDAOAluno.Teste;
+
+
+function TDAOAluno.ToJSON: string;
 var
-  q: TMongoWireQuery;
-
-  s: string;
-  d: IBSONDocument;
+  Document: IBSONDocument;
 begin
-  TConnMongoDB.GetCurrentConnection().Insert(COLLECTION ,BSON([
-    'id',mongoObjectID,
-    'sentence', 'this is a sentece',
-    'tags',VarArrayOf(['some', 'indexing', 'words']) ]
-
-  ));
-
-  q:=TMongoWireQuery.Create( TConnMongoDB.GetCurrentConnection());
-  q.Query(COLLECTION, BSON(['tags','words']));
-
-  d:= BSON;
-
- q.Next( d );
- s:= d[ 'tags' ];
-
+  {
+  Document:= BSON([]);
+  Result:= BsonToJson( TConnMongoDB.GetCurrentConnection().Get( COLLECTION, Document ) );
+  }
 end;
 
 end.

@@ -369,7 +369,8 @@ begin
     //CursorID//assert 0
     //StartingFrom//assert 0
     if p.NumberReturned=0 then
-      raise EMongoQueryError.Create('MongoWire.Get: no documents returned');
+      Exit(); // Johni
+      //raise EMongoQueryError.Create('MongoWire.Get: no documents returned');
       //Result:=nil?
 
     Result:=TBSONDocument.Create;

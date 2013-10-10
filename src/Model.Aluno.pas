@@ -15,7 +15,7 @@ type
     property Nome: string read FNome write FNome;
   end;
 
-  TModelListaAlunos= class(TObjectList< TModelAluno >)
+  TModelListaAlunos = class( TObjectList< TModelAluno > )
   end;
 
 implementation

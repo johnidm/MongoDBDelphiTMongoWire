@@ -1,9 +1,10 @@
 object Form2: TForm2
   Left = 0
   Top = 0
+  ActiveControl = EdtCodigo
   Caption = 'Form2'
-  ClientHeight = 420
-  ClientWidth = 709
+  ClientHeight = 404
+  ClientWidth = 291
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,68 +15,104 @@ object Form2: TForm2
   PixelsPerInch = 96
   TextHeight = 13
   object Insert: TButton
-    Left = 166
-    Top = 30
+    Left = 24
+    Top = 157
     Width = 75
     Height = 25
-    Caption = 'Insert'
+    Caption = 'Salvar'
     TabOrder = 0
     OnClick = InsertClick
   end
-  object Desconect: TButton
-    Left = 400
-    Top = 61
+  object Button1: TButton
+    Left = 105
+    Top = 157
     Width = 75
     Height = 25
-    Caption = 'Desconect'
+    Caption = 'Pesquisar'
     TabOrder = 1
-    OnClick = DesconectClick
+    OnClick = Button1Click
   end
-  object Conect: TButton
-    Left = 400
-    Top = 30
+  object Button2: TButton
+    Left = 186
+    Top = 157
     Width = 75
     Height = 25
-    Caption = 'Conect'
+    Caption = 'Excluir'
     TabOrder = 2
-    OnClick = ConectClick
+    OnClick = Button2Click
   end
-  object LabeledEdit1: TLabeledEdit
-    Left = 32
-    Top = 32
-    Width = 65
+  object EdtCodigo: TLabeledEdit
+    Left = 24
+    Top = 87
+    Width = 57
     Height = 21
     EditLabel.Width = 33
     EditLabel.Height = 13
     EditLabel.Caption = 'C'#243'digo'
     TabOrder = 3
   end
-  object LabeledEdit2: TLabeledEdit
-    Left = 32
-    Top = 76
-    Width = 185
+  object EdtNome: TLabeledEdit
+    Left = 104
+    Top = 87
+    Width = 157
     Height = 21
     EditLabel.Width = 27
     EditLabel.Height = 13
     EditLabel.Caption = 'Nome'
     TabOrder = 4
   end
-  object Button1: TButton
-    Left = 166
-    Top = 127
-    Width = 75
-    Height = 25
-    Caption = 'Find'
+  object DBGrid1: TDBGrid
+    Left = 24
+    Top = 263
+    Width = 237
+    Height = 120
+    DataSource = DataSource1
     TabOrder = 5
-    OnClick = Button1Click
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'Codigo'
+        Title.Caption = 'C'#243'digo'
+        Width = 50
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'Nome'
+        Width = 145
+        Visible = True
+      end>
   end
-  object Button2: TButton
-    Left = 400
-    Top = 118
-    Width = 179
-    Height = 43
-    Caption = 'DAOAluno.Teste'
+  object Button3: TButton
+    Left = 24
+    Top = 223
+    Width = 237
+    Height = 25
+    Caption = 'Listar todos'
     TabOrder = 6
-    OnClick = Button2Click
+    OnClick = Button3Click
+  end
+  object DataSource1: TDataSource
+    DataSet = ClientDataSet1
+    Left = 120
+    Top = 8
+  end
+  object ClientDataSet1: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 64
+    Top = 8
+    object ClientDataSet1Codigo: TIntegerField
+      FieldName = 'Codigo'
+    end
+    object ClientDataSet1Nome: TStringField
+      FieldName = 'Nome'
+      Size = 50
+    end
   end
 end
