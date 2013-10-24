@@ -20,10 +20,17 @@ type
     ClientDataSet1: TClientDataSet;
     ClientDataSet1Codigo: TIntegerField;
     ClientDataSet1Nome: TStringField;
+    btn1: TButton;
+    Edit1: TEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
     procedure Button1Click(Sender: TObject);
     procedure InsertClick(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure btn1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -38,6 +45,41 @@ implementation
 {$R *.dfm}
 
 uses Conn.MongoDB;
+
+procedure TForm2.btn1Click(Sender: TObject);
+var
+  TempoIni, TempoFim: TTime;
+  Aluno: TModelAluno;
+  DAOAluno: TDAOAluno;
+  Contador: Integer;
+begin
+
+  DAOAluno:= TDAOAluno.Create();
+  try
+
+    TempoIni:= Now();
+    for Contador:= 1 to ( StrToInt( Edit1.Text ) ) do
+    begin
+      Aluno:= TModelAluno.Create();
+      try
+        Aluno.Codigo:= Contador;
+        Aluno.Nome:= 'Nome ' + IntToStr( Contador )  ;
+
+        DAOAluno.Salvar( Aluno );
+      finally
+        FreeAndNil( Aluno )
+      end;
+    end;
+    TempoFim:= Now();
+
+    Label2.Caption:=
+      FormatDateTime( 'hh:nn:ss', TempoFim - TempoIni );
+
+  finally
+    FreeAndNil( DAOAluno )
+  end;
+
+end;
 
 procedure TForm2.Button1Click(Sender: TObject);
 var
@@ -73,6 +115,8 @@ var
   ListaAlunos: TModelListaAlunos;
 
   ModelAluno: TModelAluno;
+
+  TempoIni, TempoFim: TTime;
 begin
   if ( ClientDataSet1.Active ) then
     ClientDataSet1.Close;
@@ -82,6 +126,8 @@ begin
 
   DAOAluno:= TDAOAluno.Create();
   try
+    TempoIni:= Now();
+
     ListaAlunos:= DAOAluno.ListarTodos();
     try
       for ModelAluno in ListaAlunos do
@@ -98,9 +144,22 @@ begin
       FreeAndNil( ListaAlunos );
     end;
 
+    TempoFim:= Now();
+
   finally
     FreeAndNil( DAOAluno );
   end;
+
+   Label3.Caption:=
+     FormatDateTime( 'hh:nn:ss', TempoFim - TempoIni );
+
+   Label1.Caption:= 'Total : ' + IntToStr( ClientDataSet1.RecordCount )
+end;
+
+
+procedure TForm2.FormCreate(Sender: TObject);
+begin
+  TConnMongoDB.CreateConnection( );
 end;
 
 procedure TForm2.InsertClick(Sender: TObject);
@@ -131,7 +190,7 @@ begin
 end;
 
 initialization
-  TConnMongoDB.CreateConnection( );
+
 
 finalization
   TConnMongoDB.CloseConnection();

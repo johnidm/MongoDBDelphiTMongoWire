@@ -4,6 +4,9 @@ interface
 
 
 uses
+  Dialogs,
+
+  System.Rtti,
   Model.Aluno,
   System.SysUtils,
   bsonUtils,
@@ -49,6 +52,11 @@ var
   Document: IBSONDocument;
   Aluno: TModelAluno;
 
+  //Value: Variant;
+
+  Value: TValue;
+
+
 begin
   Result:= TModelListaAlunos.Create();
 
@@ -62,7 +70,18 @@ begin
     begin
       Aluno:= TModelAluno.Create();
 
+      {
+      Value:=  Document[ 'codigo' ];
+      if (VarIsOrdinal( Value )) then
+        ShowMessage( 'Cardinal' );
+      }
       Aluno.Codigo:= StrToInt( VarToStr( Document[ 'codigo' ] ) );
+
+      {
+      Value:= Document[ 'nome' ];
+      if (VarIsStr( Value )) then
+        ShowMessage( 'Str' );
+      }
       Aluno.Nome:= VarToStr( Document[ 'nome' ] );
 
       Result.Add( Aluno );
@@ -109,7 +128,8 @@ var
   Document: IBSONDocument;
   
 begin
-  Document:= TConnMongoDB.GetCurrentConnection().Get( COLLECTION, BSON(['codigo', AModelCliente.Codigo ]) );
+  //Document:= TConnMongoDB.GetCurrentConnection().Get( COLLECTION, BSON(['codigo', AModelCliente.Codigo ]) );
+  {
   if ( Document <> nil ) then
     TConnMongoDB.GetCurrentConnection().Update(
       COLLECTION, Document ,
@@ -119,6 +139,7 @@ begin
         'nome', AModelCliente.Nome
       ] ) )
   else
+  }
     TConnMongoDB.GetCurrentConnection().Insert(
       COLLECTION, BSON( [
         'id', mongoObjectId,

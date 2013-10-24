@@ -27,4 +27,21 @@
     <Transaction>2013/09/16 22:48:31.000.995,F:\SampleMongoDBDelphi\src\DAO.Alunos.pas=F:\SampleMongoDBDelphi\src\DAO.Aluno.pas</Transaction>
     <Transaction>2013/09/16 22:53:26.000.395,=F:\DelphiExemploDAO\fontes\persistencia\DAO.Base.pas</Transaction>
   </Transactions>
+	<ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="..\..\MongoDBDelphiTMongoWire-master"/>
+    <File Path="..\src"/>
+    <File Path="..\src\TMongoWire"/>
+    <File Path="..\src\TMongoWire\bsonDoc.pas"/>
+    <File Path="..\src\TMongoWire\bsonUtils.pas"/>
+    <File Path="..\src\TMongoWire\mongoAuth.pas"/>
+    <File Path="..\src\TMongoWire\mongoID.pas"/>
+    <File Path="..\src\TMongoWire\mongoStream.pas"/>
+    <File Path="..\src\TMongoWire\mongoWire.pas"/>
+    <File Path="..\src\TMongoWire\VBScript_RegExp_55_TLB.pas"/>
+    <File Path="..\src\App.Main.pas"/>
+    <File Path="..\src\App.Main.dfm"/>
+    <File Path="..\src\Conn.MongoDB.pas"/>
+    <File Path="..\src\DAO.Aluno.pas"/>
+    <File Path="..\src\Model.Aluno.pas"/>
+  </ProjectSortOrder>
 </BorlandProject>

@@ -3,8 +3,8 @@ object Form2: TForm2
   Top = 0
   ActiveControl = EdtCodigo
   Caption = 'Form2'
-  ClientHeight = 404
-  ClientWidth = 291
+  ClientHeight = 417
+  ClientWidth = 566
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,8 +12,30 @@ object Form2: TForm2
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
+  object Label1: TLabel
+    Left = 304
+    Top = 319
+    Width = 40
+    Height = 13
+    Caption = 'Total : 0'
+  end
+  object Label2: TLabel
+    Left = 24
+    Top = 284
+    Width = 45
+    Height = 13
+    Caption = 'Tempo  : '
+  end
+  object Label3: TLabel
+    Left = 304
+    Top = 338
+    Width = 45
+    Height = 13
+    Caption = 'Tempo  : '
+  end
   object Insert: TButton
     Left = 24
     Top = 157
@@ -62,10 +84,10 @@ object Form2: TForm2
     TabOrder = 4
   end
   object DBGrid1: TDBGrid
-    Left = 24
-    Top = 263
+    Left = 304
+    Top = 46
     Width = 237
-    Height = 120
+    Height = 267
     DataSource = DataSource1
     TabOrder = 5
     TitleFont.Charset = DEFAULT_CHARSET
@@ -89,13 +111,30 @@ object Form2: TForm2
       end>
   end
   object Button3: TButton
-    Left = 24
-    Top = 223
+    Left = 304
+    Top = 15
     Width = 237
     Height = 25
     Caption = 'Listar todos'
     TabOrder = 6
     OnClick = Button3Click
+  end
+  object btn1: TButton
+    Left = 119
+    Top = 247
+    Width = 75
+    Height = 25
+    Caption = 'Popular'
+    TabOrder = 7
+    OnClick = btn1Click
+  end
+  object Edit1: TEdit
+    Left = 24
+    Top = 249
+    Width = 89
+    Height = 21
+    TabOrder = 8
+    Text = '5'
   end
   object DataSource1: TDataSource
     DataSet = ClientDataSet1
