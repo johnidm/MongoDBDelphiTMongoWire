@@ -3,7 +3,7 @@ unit Conn.MongoDB;
 interface
 
 uses
-  mongoWire, System.SysUtils;
+  mongoWire, SysUtils;
 
 type
   // Factory para a criação de um objeto que representa a conexão com o servidor MongoDB

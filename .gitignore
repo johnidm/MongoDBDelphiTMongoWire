@@ -1,7 +1,12 @@
 
+prj/*exe
+
+prj/__history/
 
 src/__history/
 
 src/TMongoWire/__history/
 
-prj/__history/
+src/TMongoWire/*.dcu
+
+src/*.dcu

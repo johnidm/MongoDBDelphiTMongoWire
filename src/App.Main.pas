@@ -3,9 +3,9 @@ unit App.Main;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, DAO.Aluno,
-  Model.Aluno, Data.DB, Datasnap.DBClient, Vcl.Grids, Vcl.DBGrids, Vcl.Menus;
+  Windows, Messages, SysUtils, Variants, Classes, Graphics,
+  Controls, Forms, Dialogs, StdCtrls, ExtCtrls, DAO.Aluno,
+  Model.Aluno, DB, Grids, DBGrids, Menus, DBClient;
 
 type
   TForm2 = class(TForm)
@@ -65,7 +65,7 @@ begin
         Aluno.Codigo:= Contador;
         Aluno.Nome:= 'Nome ' + IntToStr( Contador )  ;
 
-        DAOAluno.Salvar( Aluno );
+        DAOAluno.Inserir( Aluno );
       finally
         FreeAndNil( Aluno )
       end;
@@ -175,7 +175,7 @@ begin
       Aluno.Codigo:= StrToint( EdtCodigo.Text );
       Aluno.Nome:= EdtNome.Text;
 
-      DAOAluno.Salvar( Aluno );
+      DAOAluno.Atualizar( Aluno );
 
 
     finally

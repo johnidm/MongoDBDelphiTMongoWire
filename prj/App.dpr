@@ -1,7 +1,7 @@
 program App;
 
 uses
-  Vcl.Forms,
+  Forms,
   App.Main in '..\src\App.Main.pas' {Form2},
   bsonDoc in '..\src\TMongoWire\bsonDoc.pas',
   bsonUtils in '..\src\TMongoWire\bsonUtils.pas',

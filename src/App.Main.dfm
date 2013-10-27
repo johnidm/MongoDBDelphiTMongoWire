@@ -3,8 +3,8 @@ object Form2: TForm2
   Top = 0
   ActiveControl = EdtCodigo
   Caption = 'Form2'
-  ClientHeight = 417
-  ClientWidth = 566
+  ClientHeight = 400
+  ClientWidth = 562
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText

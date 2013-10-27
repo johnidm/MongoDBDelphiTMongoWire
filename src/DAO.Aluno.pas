@@ -5,10 +5,9 @@ interface
 
 uses
   Dialogs,
-
-  System.Rtti,
+  Rtti,
   Model.Aluno,
-  System.SysUtils,
+  SysUtils,
   bsonUtils,
   mongoWire;
 
@@ -17,10 +16,14 @@ const
 
 type
   TDAOAluno = class
+
+
   public
-    procedure Salvar(const AModelCliente: TModelAluno);
+    procedure Inserir( const AModelCliente: TModelAluno );
+    procedure Atualizar( const AModelCliente: TModelAluno );
+
     procedure Excluir(const AID: Integer);
-    function Pesquisar(const AID: Integer): TModelAluno;
+    function Pesquisar(const ACodigo: Integer): TModelAluno;
     function ListarTodos(): TModelListaAlunos;
 
     function ToJSON(): string;
@@ -30,9 +33,27 @@ implementation
 
 { TQueryMongoDB }
 
-uses Conn.MongoDB, bsonDoc, mongoID, System.Variants;
+uses Conn.MongoDB, bsonDoc, mongoID, Variants;
 
 { TDAOAluno }
+
+procedure TDAOAluno.Atualizar(const AModelCliente: TModelAluno);
+var
+  Document: IBSONDocument;
+begin
+  Document:= TConnMongoDB.GetCurrentConnection().Get( COLLECTION, BSON(['codigo', AModelCliente.Codigo ]) );
+
+  if ( Document <> nil ) then
+    TConnMongoDB.GetCurrentConnection().Update(
+      COLLECTION, Document ,
+        BSON( [
+        'id', Document['id'] ,
+        'codigo', AModelCliente.Codigo ,
+        'nome', AModelCliente.Nome
+      ] ) )
+  else
+    Inserir( AModelCliente );
+end;
 
 procedure TDAOAluno.Excluir(const AID: Integer);
 var
@@ -46,16 +67,23 @@ end;
 
 
 
+procedure TDAOAluno.Inserir(const AModelCliente: TModelAluno);
+begin
+  TConnMongoDB.GetCurrentConnection().Insert(
+    COLLECTION, BSON( [
+      'id', mongoObjectId,
+      'codigo', AModelCliente.Codigo,
+      'nome', AModelCliente.Nome
+  ] ) );
+
+end;
+
 function TDAOAluno.ListarTodos: TModelListaAlunos;
 var
   WireQuery: TMongoWireQuery;
   Document: IBSONDocument;
   Aluno: TModelAluno;
-
-  //Value: Variant;
-
   Value: TValue;
-
 
 begin
   Result:= TModelListaAlunos.Create();
@@ -95,7 +123,7 @@ end;
 
 
 
-function TDAOAluno.Pesquisar(const AID: Integer): TModelAluno;
+function TDAOAluno.Pesquisar(const ACodigo: Integer): TModelAluno;
 var
   WireQuery: TMongoWireQuery;
   Document: IBSONDocument;
@@ -104,50 +132,16 @@ begin
   Result:= TModelAluno.Create();
   // {TODO implemetnar o IsEmpty no IBSONDocument }
 
-  Document := BSON( [ 'codigo' , AID ] );
-  WireQuery := TMongoWireQuery.Create( TConnMongoDB.GetCurrentConnection( ) );
-  try
-    WireQuery.Query( COLLECTION ,Document );
-    if WireQuery.Next( Document ) then
-    begin
+  Document:= TConnMongoDB.GetCurrentConnection().Get( COLLECTION, BSON(['codigo', ACodigo ]) );
 
-      Result.Codigo:= StrToInt( VarToStr( Document[ 'codigo' ] ) );
-      Result.Nome:= VarToStr( Document[ 'nome' ] );
-
-    end;
-  finally
-    FreeAndNil( WireQuery );
-  end;
-
+  if Document <> nil then
+  begin
+    Result.Codigo:= StrToInt( VarToStr( Document[ 'codigo' ] ) );
+    Result.Nome:= VarToStr( Document[ 'nome' ] );
+  end else
+    Result.Codigo:= 0;
 end;
 
-
-
-procedure TDAOAluno.Salvar(const AModelCliente: TModelAluno);
-var
-  Document: IBSONDocument;
-  
-begin
-  //Document:= TConnMongoDB.GetCurrentConnection().Get( COLLECTION, BSON(['codigo', AModelCliente.Codigo ]) );
-  {
-  if ( Document <> nil ) then
-    TConnMongoDB.GetCurrentConnection().Update(
-      COLLECTION, Document ,
-        BSON( [
-        'id', Document['id'] ,
-        'codigo', AModelCliente.Codigo ,
-        'nome', AModelCliente.Nome
-      ] ) )
-  else
-  }
-    TConnMongoDB.GetCurrentConnection().Insert(
-      COLLECTION, BSON( [
-        'id', mongoObjectId,
-        'codigo', AModelCliente.Codigo,
-        'nome', AModelCliente.Nome
-      ] ) );
-
-end;
 
 
 
