@@ -16,8 +16,6 @@ const
 
 type
   TDAOAluno = class
-
-
   public
     procedure Inserir( const AModelCliente: TModelAluno );
     procedure Atualizar( const AModelCliente: TModelAluno );
@@ -33,7 +31,9 @@ implementation
 
 { TQueryMongoDB }
 
-uses Conn.MongoDB, bsonDoc, mongoID, Variants;
+uses
+  REST.JSON,
+  Conn.MongoDB, bsonDoc, mongoID, Variants;
 
 { TDAOAluno }
 
@@ -68,14 +68,24 @@ end;
 
 
 procedure TDAOAluno.Inserir(const AModelCliente: TModelAluno);
+var
+  d: IBSONDocument;
 begin
+  d:= JsonToBson( TJson.ObjectToJsonString(AModelCliente) );
+
+  TConnMongoDB.GetCurrentConnection().Insert(
+    COLLECTION, d);
+
+
+
+  {
   TConnMongoDB.GetCurrentConnection().Insert(
     COLLECTION, BSON( [
       'id', mongoObjectId,
       'codigo', AModelCliente.Codigo,
       'nome', AModelCliente.Nome
   ] ) );
-
+  }
 end;
 
 function TDAOAluno.ListarTodos: TModelListaAlunos;
@@ -129,10 +139,11 @@ var
   Document: IBSONDocument;
 
 begin
+  Document:= TConnMongoDB.GetCurrentConnection().Get( COLLECTION, BSON(['codigo', ACodigo ]) );
+  Result:=  TJson.JsonToObject<TModelAluno>( BSONTOJSON( Document ) );
+  (*
   Result:= TModelAluno.Create();
   // {TODO implemetnar o IsEmpty no IBSONDocument }
-
-  Document:= TConnMongoDB.GetCurrentConnection().Get( COLLECTION, BSON(['codigo', ACodigo ]) );
 
   if Document <> nil then
   begin
@@ -140,6 +151,8 @@ begin
     Result.Nome:= VarToStr( Document[ 'nome' ] );
   end else
     Result.Codigo:= 0;
+
+   *)
 end;
 
 

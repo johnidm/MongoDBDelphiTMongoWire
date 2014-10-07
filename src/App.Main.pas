@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics,
   Controls, Forms, Dialogs, StdCtrls, ExtCtrls, DAO.Aluno,
-  Model.Aluno, DB, Grids, DBGrids, Menus, DBClient;
+  Model.Aluno, DB, Grids, DBGrids, Menus, DBClient, System.Win.ScktComp;
 
 type
   TForm2 = class(TForm)
@@ -25,12 +25,15 @@ type
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
+    Button4: TButton;
+    Memo1: TMemo;
     procedure Button1Click(Sender: TObject);
     procedure InsertClick(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure btn1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+
   private
     { Private declarations }
   public
@@ -44,7 +47,7 @@ implementation
 
 {$R *.dfm}
 
-uses Conn.MongoDB;
+uses Conn.MongoDB, bsonDoc, bsonUtils;
 
 procedure TForm2.btn1Click(Sender: TObject);
 var
@@ -88,7 +91,7 @@ var
 begin
   Aluno:= DAOAluno.Pesquisar( StrToInt( EdtCodigo.Text ) );
   try
-    ShowMessage( Aluno.Nome );
+    EdtNome.Text:= Aluno.Nome;
   finally
     FreeAndNil( Aluno );
   end;
@@ -186,7 +189,7 @@ begin
   end;
 
 
-  Button3.Click();
+  //Button3.Click();
 end;
 
 initialization

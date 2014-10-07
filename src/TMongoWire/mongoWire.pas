@@ -2,7 +2,7 @@ unit mongoWire;
 
 interface
 
-uses SysUtils, SyncObjs, Classes, Sockets, bsonDoc;
+uses SysUtils, SyncObjs, Classes, Web.Win.Sockets, bsonDoc;
 
 type
   TBSONDocumentsEnumerator=class //abstract

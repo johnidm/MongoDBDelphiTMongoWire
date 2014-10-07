@@ -3,7 +3,7 @@ object Form2: TForm2
   Top = 0
   ActiveControl = EdtCodigo
   Caption = 'Form2'
-  ClientHeight = 400
+  ClientHeight = 525
   ClientWidth = 562
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -135,6 +135,21 @@ object Form2: TForm2
     Height = 21
     TabOrder = 8
     Text = '5'
+  end
+  object Button4: TButton
+    Left = 24
+    Top = 377
+    Width = 185
+    Height = 25
+    Caption = 'Button4'
+    TabOrder = 9
+  end
+  object Memo1: TMemo
+    Left = 24
+    Top = 408
+    Width = 517
+    Height = 89
+    TabOrder = 10
   end
   object DataSource1: TDataSource
     DataSet = ClientDataSet1
